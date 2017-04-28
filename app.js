@@ -52,7 +52,7 @@ Numbers.list = _.range(1, 10);
 class Number extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this, this.props.value);
   }
 
   numberClassName(number) {
@@ -61,8 +61,8 @@ class Number extends React.Component {
     }
   }
 
-  handleClick() {
-    this.props.selectNumber(this.props.value);
+  handleClick(number) {
+    this.props.selectNumber(number);
   }
 
   render() {
