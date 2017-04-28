@@ -33,32 +33,41 @@ const Answer = (props) => {
 }
 
 const Numbers = (props) => {
-  const numberClassName = (number) => {
-    if (props.selectedNumbers.indexOf(number) >= 0) {
-      return 'selected';
-    }
-  }
+  const { selectedNumbers, selectNumber } = props;
   return (
     <div className="card text-center">
       <div>
-        { Numbers.list.map((number, i) =>
-          <span key={i} className={numberClassName(number)}
-                onClick={() => props.selectNumber(number)}>
-            {number}
-          </span>
-        )}
+        { Numbers.list.map(
+          (number, i) =>
+          <Number key={i} value={number}
+                  selectedNumbers={selectedNumbers}
+                  selectNumber={selectNumber} />)
+        }
       </div>
     </div>
   )
 }
 Numbers.list = _.range(1, 10);
 
-const Number = (props) => {
-  return (
-    <div>
+class Number extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    </div>
-  )
+  numberClassName(number) {
+    if (this.props.selectedNumbers.indexOf(number) >= 0) {
+      return 'selected';
+    }
+  }
+
+  render() {
+    return (
+      <span className={this.numberClassName(this.props.value)}
+        onClick={() => this.props.selectNumber(this.props.value)}>
+        {this.props.value}
+      </span>
+    )
+  }
 }
 
 class Game extends React.Component {
