@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const Stars = (props) => {
 	return (
@@ -10,6 +11,10 @@ const Stars = (props) => {
       )}
     </div>
   )
+}
+
+Stars.propTypes = {
+	numberOfStars: PropTypes.number.isRequired
 }
 
 const Button = (props) => {
@@ -48,16 +53,31 @@ const Button = (props) => {
   )
 }
 
+Button.propTypes = {
+	answerIsCorrect: PropTypes.bool,
+	acceptAnswer: PropTypes.func.isRequired,
+	checkAnswer: PropTypes.func.isRequired,
+	selectedNumbers: PropTypes.array.isRequired,
+	redraw: PropTypes.func.isRequired,
+	redraws: PropTypes.number.isRequired
+}
+
 const Answer = (props) => {
+	const { selectedNumbers, unselectNumber } = props;
 	return (
     <div className="col-md-5">
-    	{ props.selectedNumbers.map((number, i) =>
-        <span key={i} onClick={() => props.unselectNumber(number)}>
+    	{ selectedNumbers.map((number, i) =>
+        <span key={i} onClick={() => unselectNumber(number)}>
           {number}
         </span>
       )}
     </div>
   )
+}
+
+Answer.propTypes = {
+	selectedNumbers: PropTypes.array.isRequired,
+	unselectNumber: PropTypes.func.isRequired
 }
 
 const Numbers = (props) => {
